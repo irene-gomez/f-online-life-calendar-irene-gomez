@@ -12,10 +12,11 @@ class AddMood extends React.Component {
                 message: ''
             },
             messageHidden: 'hidden',
-            currentDate: new Date(),
+            currentDate: new Date().toISOString().slice(0, 10)
         };
         this.handleRadioChange = this.handleRadioChange.bind(this);
         this.handleTextareaChange = this.handleTextareaChange.bind(this);
+        this.showDate = this.showDate.bind(this);
     }
 
     handleRadioChange(event) {
@@ -33,7 +34,7 @@ class AddMood extends React.Component {
                     message: value
                 }
             };
-        });        
+        });
     }
 
     saveMood(data) {
@@ -48,11 +49,11 @@ class AddMood extends React.Component {
     }
 
     showMessage(data) {
-        if(data === ':)') {
+        if (data === ':)') {
             this.setState(prevState => {
                 return {
                     ...prevState,
-                    messageHiden: ''
+                    messageHidden: ''
                 };
             });
         } else {
@@ -65,14 +66,33 @@ class AddMood extends React.Component {
         }
     }
 
+    showDate(e) {
+        const { value } = e.currentTarget;
+        this.setState(prevState => {
+            return {
+                moodData: {
+                    ...prevState.moodData,
+                    date: value
+                },
+                currentDate: value
+            };
+        });
+    }
+
     render() {
-        const { messageHiden } = this.state;
+        const { messageHidden, currentDate } = this.state;
         return (
             <section className="main-mood">
                 <form>
                     <div>
                         <label htmlFor="date">Fecha</label>
-                        <input type="date" name="date" id="date" />
+                        <input
+                            type="date"
+                            name="date"
+                            id="date"
+                            value={currentDate}
+                            onChange={this.showDate}
+                        />
                     </div>
 
                     <div>
@@ -96,9 +116,13 @@ class AddMood extends React.Component {
                         <label htmlFor="sadMood">:(</label>
                     </div>
 
-                    <div className={`${messageHiden}`}>
+                    <div className={`${messageHidden}`}>
                         <label htmlFor="message">Mensaje</label>
-                        <textarea name="message" id="message" onChange={this.handleTextareaChange} />
+                        <textarea
+                            name="message"
+                            id="message"
+                            onChange={this.handleTextareaChange}
+                        />
                     </div>
                     <p>
                         <Link to="/">Home</Link>

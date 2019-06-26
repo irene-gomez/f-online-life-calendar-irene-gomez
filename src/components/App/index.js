@@ -6,10 +6,10 @@ import AddMood from '../AddMood';
 import './styles.scss';
 
 class App extends Component {
-    constructor(props) {
-		super(props);
+    // constructor(props) {
+	// 	super(props);
 		
-    }
+    // }
 
     render() {
         return (
