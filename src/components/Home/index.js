@@ -6,8 +6,16 @@ import './styles.scss';
 const Home = () => {
     return (
         <Fragment>
-            <p>Home</p>
-            <Link to="/add-mood">AddMood</Link>
+            <header className="main-header">
+                <Link to="/add-mood">AddMood</Link>
+            </header>
+            <main className="main-content">
+                <ul className="mood__list">
+                    <li className="mood__item">:)</li>
+                    <li className="mood__item">:(</li>
+                    <li className="mood__item">:)</li>
+                </ul>
+            </main>
         </Fragment>
     );
 }
