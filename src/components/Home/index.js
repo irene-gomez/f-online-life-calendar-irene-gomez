@@ -5,8 +5,6 @@ import './styles.scss';
 
 const Home = props => {
     const { historyMood } = props;
-    console.log('historyMood HOME', historyMood);
-    
     return (
         <Fragment>
             <header className="main-header">

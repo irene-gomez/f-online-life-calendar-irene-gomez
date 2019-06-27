@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import RadioButton from '../RadioButton';
 import './styles.scss';
 
 class AddMood extends React.Component {
@@ -94,7 +95,7 @@ class AddMood extends React.Component {
             message: moodData.message
         };
 
-        if (moodData.date !== '' && moodData.mood !== '') {
+        if (moodData.mood !== '') {
             historyMood.push(newDay);
         } else {
             alert(`Elige un estado`);
@@ -108,6 +109,7 @@ class AddMood extends React.Component {
 
     render() {
         const { messageHidden, moodData } = this.state;
+        const { id, value, name, handleRadioChange } = this.props;
         return (
             <section className="main-mood">
                 <form>
@@ -124,23 +126,18 @@ class AddMood extends React.Component {
 
                     <div>
                         <p>Estado</p>
-                        <input
-                            type="radio"
+                        <RadioButton
                             name="mood"
                             id="happyMood"
                             value=":)"
-                            onChange={this.handleRadioChange}
+                            handleRadioChange={this.handleRadioChange}
                         />
-                        <label htmlFor="happyMood">:)</label>
-
-                        <input
-                            type="radio"
+                        <RadioButton
                             name="mood"
                             id="sadMood"
                             value=":("
-                            onChange={this.handleRadioChange}
+                            handleRadioChange={this.handleRadioChange}
                         />
-                        <label htmlFor="sadMood">:(</label>
                     </div>
 
                     <div className={`${messageHidden}`}>
@@ -152,10 +149,7 @@ class AddMood extends React.Component {
                         />
                     </div>
                     <p>
-                        <Link
-                            // to="/"
-                            onClick={this.handleClickHome}
-                        >
+                        <Link to="/" onClick={this.handleClickHome}>
                             Home
                         </Link>
                     </p>
