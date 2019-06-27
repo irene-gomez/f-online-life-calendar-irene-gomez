@@ -6,17 +6,25 @@ import AddMood from '../AddMood';
 import './styles.scss';
 
 class App extends Component {
-    // constructor(props) {
-	// 	super(props);
-		
-    // }
+    constructor(props) {
+        super(props);
+        this.state = {
+            historyMood: []
+        };
+    }
 
     render() {
+        const { historyMood } = this.state;
         return (
             <div className="App">
                 <Switch>
                     <Route exact path="/" component={Home} />
-                    <Route path="/add-mood" component={AddMood} />
+                    <Route
+                        path="/add-mood"
+                        render={routerProps => (
+                            <AddMood historyMood={historyMood} />
+                        )}
+                    />
                 </Switch>
             </div>
         );

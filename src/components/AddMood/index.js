@@ -80,25 +80,28 @@ class AddMood extends React.Component {
     }
 
     handleClickHome() {
+        this.saveMoodInArray();
+        
+    }
+
+    saveMoodInArray() {
         const { moodData } = this.state;
+        const { historyMood } = this.props;
 
         const newDay = {
             date: moodData.date,
             mood: moodData.mood,
             message: moodData.message
         };
-        console.log('newDay', newDay);
 
         if (moodData.date !== '' && moodData.mood !== '') {
-            this.setState(prevState => ({
-                historyMood: [...prevState.historyMood, newDay]
-            }));
+            historyMood.push(newDay);
         } else {
             alert(`Elige un estado`);
         }
     }
 
-    // saveLS() {
+    // saveLocalStorage() {
     //     const { moodData } = this.state;
     //     localStorage.setItem('moodData', JSON.stringify(moodData));
     // }
