@@ -13,17 +13,32 @@ class App extends Component {
         };
     }
 
+    componentDidMount() {
+        this.checkLocalStorage();
+    }
+
+    checkLocalStorage() {
+        if (localStorage.getItem('historyMood') !== null) {
+            const historyMood = JSON.parse(localStorage.getItem('historyMood'));
+            this.setState({
+                historyMood: historyMood
+            });
+        }
+    }
+
     render() {
         const { historyMood } = this.state;
         return (
             <div className="App">
                 <Switch>
-                    <Route exact path="/" component={Home} />
+                    <Route
+                        exact
+                        path="/"
+                        render={routerProps => <Home historyMood={historyMood} />}
+                    />
                     <Route
                         path="/add-mood"
-                        render={routerProps => (
-                            <AddMood historyMood={historyMood} />
-                        )}
+                        render={routerProps => <AddMood historyMood={historyMood} />}
                     />
                 </Switch>
             </div>

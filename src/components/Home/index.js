@@ -3,7 +3,10 @@ import { Link } from 'react-router-dom';
 
 import './styles.scss';
 
-const Home = () => {
+const Home = props => {
+    const { historyMood } = props;
+    console.log('historyMood HOME', historyMood);
+    
     return (
         <Fragment>
             <header className="main-header">
@@ -11,11 +14,15 @@ const Home = () => {
             </header>
             <main className="main-content">
                 <ul className="mood__list">
-                    <li className="mood__item">:)</li>
+                    {historyMood.map((mood, index) => (
+                        <li key={index} className="mood__item">
+                            {mood.mood}
+                        </li>
+                    ))}
                 </ul>
             </main>
         </Fragment>
     );
-}
- 
+};
+
 export default Home;

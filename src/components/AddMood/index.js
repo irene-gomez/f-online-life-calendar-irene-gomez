@@ -81,7 +81,7 @@ class AddMood extends React.Component {
 
     handleClickHome() {
         this.saveMoodInArray();
-        
+        this.saveLocalStorage();
     }
 
     saveMoodInArray() {
@@ -101,27 +101,10 @@ class AddMood extends React.Component {
         }
     }
 
-    // saveLocalStorage() {
-    //     const { moodData } = this.state;
-    //     localStorage.setItem('moodData', JSON.stringify(moodData));
-    // }
-
-    // checkLS() {
-    //     if (localStorage.getItem('moodData') !== null) {
-    //         const moodData = JSON.parse(localStorage.getItem('moodData'));
-    //         this.setState({
-    //             moodData: moodData
-    //         });
-    //     }
-    // }
-
-    // componentDidMount() {
-    //     this.checkLS();
-    // }
-
-    // componentDidUpdate() {
-    //     this.saveLS();
-    // }
+    saveLocalStorage() {
+        const { historyMood } = this.props;
+        localStorage.setItem('historyMood', JSON.stringify(historyMood));
+    }
 
     render() {
         const { messageHidden, moodData } = this.state;
