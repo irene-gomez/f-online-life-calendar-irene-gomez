@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import RadioButton from '../RadioButton';
+import Input from '../Input';
+
 import './styles.scss';
 
 class AddMood extends React.Component {
@@ -13,7 +15,6 @@ class AddMood extends React.Component {
                 message: ''
             },
             messageHidden: 'hidden',
-            historyMood: []
         };
         this.handleRadioChange = this.handleRadioChange.bind(this);
         this.handleTextareaChange = this.handleTextareaChange.bind(this);
@@ -109,30 +110,31 @@ class AddMood extends React.Component {
 
     render() {
         const { messageHidden, moodData } = this.state;
-        const { id, value, name, handleRadioChange } = this.props;
         return (
             <section className="main-mood">
                 <form>
                     <div>
-                        <label htmlFor="date">Fecha</label>
-                        <input
+                        <Input
+                            className=""
+                            labelText="Fecha"
                             type="date"
-                            name="date"
                             id="date"
                             value={moodData.date}
-                            onChange={this.showDate}
-                        />
+                            onChangeInput={this.showDate}
+                        />                        
                     </div>
 
                     <div>
                         <p>Estado</p>
                         <RadioButton
+                            className=""
                             name="mood"
                             id="happyMood"
                             value=":)"
                             handleRadioChange={this.handleRadioChange}
                         />
                         <RadioButton
+                            className=""
                             name="mood"
                             id="sadMood"
                             value=":("

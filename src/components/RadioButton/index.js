@@ -1,9 +1,10 @@
 import React, { Fragment } from 'react';
+import Label from '../Label';
 
 import './styles.scss';
 
 const RadioButton = props => {
-    const { name, id, value, handleRadioChange } = props;
+    const { name, id, value, handleRadioChange, className } = props;
     return (
         <Fragment>
             <input
@@ -13,7 +14,7 @@ const RadioButton = props => {
                 value={value}
                 onChange={handleRadioChange}
             />
-            <label htmlFor={id}>{value}</label>
+            <Label htmlFor={id} text={value} className={className} />
         </Fragment>
     );
 };
