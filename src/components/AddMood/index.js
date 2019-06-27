@@ -7,16 +7,17 @@ class AddMood extends React.Component {
         super(props);
         this.state = {
             moodData: {
-                date: '',
+                date: new Date().toISOString().slice(0, 10),
                 mood: '',
                 message: ''
             },
             messageHidden: 'hidden',
-            currentDate: new Date().toISOString().slice(0, 10)
+            historyMood: []
         };
         this.handleRadioChange = this.handleRadioChange.bind(this);
         this.handleTextareaChange = this.handleTextareaChange.bind(this);
         this.showDate = this.showDate.bind(this);
+        this.handleClickHome = this.handleClickHome.bind(this);
     }
 
     handleRadioChange(event) {
@@ -73,14 +74,54 @@ class AddMood extends React.Component {
                 moodData: {
                     ...prevState.moodData,
                     date: value
-                },
-                currentDate: value
+                }
             };
         });
     }
 
+    handleClickHome() {
+        const { moodData } = this.state;
+
+        const newDay = {
+            date: moodData.date,
+            mood: moodData.mood,
+            message: moodData.message
+        };
+        console.log('newDay', newDay);
+
+        if (moodData.date !== '' && moodData.mood !== '') {
+            this.setState(prevState => ({
+                historyMood: [...prevState.historyMood, newDay]
+            }));
+        } else {
+            alert(`Elige un estado`);
+        }
+    }
+
+    // saveLS() {
+    //     const { moodData } = this.state;
+    //     localStorage.setItem('moodData', JSON.stringify(moodData));
+    // }
+
+    // checkLS() {
+    //     if (localStorage.getItem('moodData') !== null) {
+    //         const moodData = JSON.parse(localStorage.getItem('moodData'));
+    //         this.setState({
+    //             moodData: moodData
+    //         });
+    //     }
+    // }
+
+    // componentDidMount() {
+    //     this.checkLS();
+    // }
+
+    // componentDidUpdate() {
+    //     this.saveLS();
+    // }
+
     render() {
-        const { messageHidden, currentDate } = this.state;
+        const { messageHidden, moodData } = this.state;
         return (
             <section className="main-mood">
                 <form>
@@ -90,7 +131,7 @@ class AddMood extends React.Component {
                             type="date"
                             name="date"
                             id="date"
-                            value={currentDate}
+                            value={moodData.date}
                             onChange={this.showDate}
                         />
                     </div>
@@ -125,7 +166,12 @@ class AddMood extends React.Component {
                         />
                     </div>
                     <p>
-                        <Link to="/">Home</Link>
+                        <Link
+                            // to="/"
+                            onClick={this.handleClickHome}
+                        >
+                            Home
+                        </Link>
                     </p>
                     <p>
                         <Link to="/">Cancelar</Link>

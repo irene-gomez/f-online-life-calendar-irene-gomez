@@ -12,8 +12,6 @@ const Home = () => {
             <main className="main-content">
                 <ul className="mood__list">
                     <li className="mood__item">:)</li>
-                    <li className="mood__item">:(</li>
-                    <li className="mood__item">:)</li>
                 </ul>
             </main>
         </Fragment>
