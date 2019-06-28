@@ -5,9 +5,6 @@
         background-color: $blueSky;
         padding: .8em;
     }
-    &-content {
-        // background-color: $greenBush;
-    }
 }
 
 .mood {
@@ -17,8 +14,28 @@
         grid-template-columns: repeat(auto-fill, 80px);
         grid-gap: 1em;
     }
-    &__item {
-        // margin-right: 1em;;
+}
+
+.wrapper__tooltip {
+    display: none;
+    background-color: $blueGrey;
+    font-size: 12px;
+    padding: 1em;
+    border-radius: 6px;
+    position: absolute;
+    transform: translateY(100px);
+    &::before {
+        content: '';
+        display: block;
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-width: 0 10px 12px 10px;
+        border-color: transparent transparent $blueGrey transparent;
+        position: absolute;
+        top: -11px;
+        left: 40px;
+        transform: translateX(-50%);
     }
 }
 
@@ -26,6 +43,9 @@
     width: 80px;
     height: 80px;
     border-radius: 50%;
+    &:hover .wrapper__tooltip {
+        display: block;
+    }
     &--sad {
         background-image: url('../../img/sadFace.png');
         background-size: cover;
