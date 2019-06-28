@@ -115,7 +115,7 @@ class AddMood extends React.Component {
                 <form>
                     <div>
                         <Input
-                            className=""
+                            classNameLabel="label__date"
                             labelText="Fecha"
                             type="date"
                             id="date"
@@ -125,38 +125,43 @@ class AddMood extends React.Component {
                     </div>
 
                     <div>
-                        <p>Estado</p>
-                        <RadioButton
-                            className=""
-                            name="mood"
-                            id="happyMood"
-                            value=":)"
-                            handleRadioChange={this.handleRadioChange}
-                        />
-                        <RadioButton
-                            className=""
-                            name="mood"
-                            id="sadMood"
-                            value=":("
-                            handleRadioChange={this.handleRadioChange}
-                        />
+                        <p className="label__mood">Estado</p>
+                        <div className="wrapper__radios">
+                            <RadioButton
+                                classNameDiv="radios"
+                                classNameLabel=""
+                                name="mood"
+                                id="happyMood"
+                                value=":)"
+                                handleRadioChange={this.handleRadioChange}
+                            />
+                            <RadioButton
+                                classNameDiv="radios"
+                                classNameLabel=""
+                                name="mood"
+                                id="sadMood"
+                                value=":("
+                                handleRadioChange={this.handleRadioChange}
+                            />
+                        </div>
                     </div>
 
-                    <div className={`${messageHidden}`}>
-                        <label htmlFor="message">Mensaje</label>
+                    <div className={`message ${messageHidden}`}>
+                        <label htmlFor="message" className="label__textarea">Mensaje</label>
                         <textarea
                             name="message"
                             id="message"
+                            placeholder="¿Cómo te sientes?"
                             onChange={this.handleTextareaChange}
                         />
                     </div>
                     <p>
-                        <Link to="/" onClick={this.handleClickHome}>
-                            Home
+                        <Link to="/" className="btn btn__save" onClick={this.handleClickHome}>
+                            Guardar
                         </Link>
                     </p>
                     <p>
-                        <Link to="/">Cancelar</Link>
+                        <Link to="/" className="btn btn__cancel">Cancelar</Link>
                     </p>
                 </form>
             </section>

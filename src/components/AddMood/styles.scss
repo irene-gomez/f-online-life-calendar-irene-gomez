@@ -1,3 +1,58 @@
+@import '../../scss/variables';
+
 .hidden {
-    display: none;
+    height: 0;
+    overflow: hidden;
+}
+
+.message {
+    margin-bottom: 1.4em;
+}
+
+.main-mood {
+    margin-top: 20px;
+}
+
+.label__date,
+.label__mood,
+.label__textarea {
+    display: block;
+    margin-bottom: .4em;
+}
+
+#date {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 1em;
+}
+#message {
+    display: block;
+    width: 100%;
+    padding: 8px;
+}
+
+.wrapper__radios {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.radios {
+    margin-right: 30px;
+    margin-bottom: 1.4em;
+}
+
+.btn {
+    display: block;
+    width: 100%;
+    margin-bottom: 20px;
+    padding: 1em;
+    text-transform: uppercase;
+    text-align: center;
+    border: 2px solid $blueGrey;
+    &__save {
+        background-color: $blueGrey;
+    }
+    &__cancel {
+        background-color: $snowWhite;
+    }
 }
