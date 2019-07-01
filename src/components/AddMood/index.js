@@ -15,6 +15,7 @@ class AddMood extends React.Component {
                 message: ''
             },
             messageHidden: 'hidden',
+            errorMessage: false
         };
         this.handleRadioChange = this.handleRadioChange.bind(this);
         this.handleTextareaChange = this.handleTextareaChange.bind(this);
@@ -71,14 +72,30 @@ class AddMood extends React.Component {
 
     showDate(e) {
         const { value } = e.currentTarget;
-        this.setState(prevState => {
-            return {
-                moodData: {
-                    ...prevState.moodData,
-                    date: value
-                }
-            };
-        });
+        const { historyMood } = this.props;
+        const dateSelected = historyMood.find(date => date.date === value);
+
+        if (dateSelected) {
+            this.setState(prevState => {
+                return {
+                    moodData: {
+                        ...prevState.moodData,
+                        date: value
+                    },
+                    errorMessage: true
+                };
+            });
+        } else {
+            this.setState(prevState => {
+                return {
+                    moodData: {
+                        ...prevState.moodData,
+                        date: value
+                    },
+                    errorMessage: false
+                };
+            });
+        }
     }
 
     handleClickHome() {
@@ -109,7 +126,7 @@ class AddMood extends React.Component {
     }
 
     render() {
-        const { messageHidden, moodData } = this.state;
+        const { messageHidden, moodData, errorMessage } = this.state;
         return (
             <section className="main-mood">
                 <form>
@@ -121,7 +138,7 @@ class AddMood extends React.Component {
                             id="date"
                             value={moodData.date}
                             onChangeInput={this.showDate}
-                        />                        
+                        />
                     </div>
 
                     <div>
@@ -147,7 +164,9 @@ class AddMood extends React.Component {
                     </div>
 
                     <div className={`message ${messageHidden}`}>
-                        <label htmlFor="message" className="label__textarea">Mensaje</label>
+                        <label htmlFor="message" className="label__textarea">
+                            Mensaje
+                        </label>
                         <textarea
                             name="message"
                             id="message"
@@ -155,13 +174,20 @@ class AddMood extends React.Component {
                             onChange={this.handleTextareaChange}
                         />
                     </div>
+                    {errorMessage && <p className='error-message'>Esa fecha ya tiene un estado. Seleccione otro día.</p>}
                     <p>
-                        <Link to="/" className="btn btn__save" onClick={this.handleClickHome}>
+                        <Link
+                            to="/"
+                            className="btn btn__save"
+                            onClick={this.handleClickHome}
+                        >
                             Guardar
                         </Link>
                     </p>
                     <p>
-                        <Link to="/" className="btn btn__cancel">Cancelar</Link>
+                        <Link to="/" className="btn btn__cancel">
+                            Cancelar
+                        </Link>
                     </p>
                 </form>
             </section>
