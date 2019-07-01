@@ -138,7 +138,6 @@ class AddMood extends React.Component {
                     isSameDate: true
                 }
             });
-            this.props.push('add-mood');
         }
     }
 
