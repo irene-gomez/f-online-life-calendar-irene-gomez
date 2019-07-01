@@ -106,6 +106,7 @@ class AddMood extends React.Component {
     saveMoodInArray() {
         const { moodData } = this.state;
         const { historyMood } = this.props;
+        const dateSelected = historyMood.find(date => date.date === moodData.date);
 
         const newDay = {
             date: moodData.date,
@@ -113,10 +114,14 @@ class AddMood extends React.Component {
             message: moodData.message
         };
 
-        if (moodData.mood !== '') {
-            historyMood.push(newDay);
+        if (!dateSelected) {
+            if (moodData.mood !== '') {
+                historyMood.push(newDay);
+            } else {
+                alert(`Elige un estado`);
+            }
         } else {
-            alert(`Elige un estado`);
+            alert(`Elige otra fecha`);
         }
     }
 
