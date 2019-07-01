@@ -15,12 +15,13 @@ class AddMood extends React.Component {
                 message: ''
             },
             messageHidden: 'hidden',
-            errorMessage: false
+            isMood: false,
+            isSameDate: false,
         };
         this.handleRadioChange = this.handleRadioChange.bind(this);
         this.handleTextareaChange = this.handleTextareaChange.bind(this);
         this.showDate = this.showDate.bind(this);
-        this.handleClickHome = this.handleClickHome.bind(this);
+        this.handleClickSave = this.handleClickSave.bind(this);
     }
 
     handleRadioChange(event) {
@@ -82,7 +83,7 @@ class AddMood extends React.Component {
                         ...prevState.moodData,
                         date: value
                     },
-                    errorMessage: true
+                    isSameDate: true
                 };
             });
         } else {
@@ -92,13 +93,13 @@ class AddMood extends React.Component {
                         ...prevState.moodData,
                         date: value
                     },
-                    errorMessage: false
+                    isSameDate: false
                 };
             });
         }
     }
 
-    handleClickHome() {
+    handleClickSave() {
         this.saveMoodInArray();
         this.saveLocalStorage();
     }
@@ -117,11 +118,26 @@ class AddMood extends React.Component {
         if (!dateSelected) {
             if (moodData.mood !== '') {
                 historyMood.push(newDay);
+                this.props.history.push('/');
+                this.setState({
+                    isMood: false,
+                    isSameDate: false
+                });
             } else {
-                alert(`Elige un estado`);
+                this.setState(prevState => {
+                    return {
+                        ...prevState,
+                        isMood: true
+                    }
+                });
             }
         } else {
-            alert(`Elige otra fecha`);
+            this.setState(prevState => {
+                return {
+                    ...prevState,
+                    isSameDate: true
+                }
+            });
         }
     }
 
@@ -131,7 +147,7 @@ class AddMood extends React.Component {
     }
 
     render() {
-        const { messageHidden, moodData, errorMessage } = this.state;
+        const { messageHidden, moodData, isSameDate, isMood } = this.state;
         return (
             <section className="main-mood">
                 <form>
@@ -179,21 +195,14 @@ class AddMood extends React.Component {
                             onChange={this.handleTextareaChange}
                         />
                     </div>
-                    {errorMessage && <p className='error-message'>Esa fecha ya tiene un estado. Seleccione otro día.</p>}
-                    <p>
-                        <Link
-                            to="/"
-                            className="btn btn__save"
-                            onClick={this.handleClickHome}
-                        >
-                            Guardar
-                        </Link>
-                    </p>
-                    <p>
-                        <Link to="/" className="btn btn__cancel">
-                            Cancelar
-                        </Link>
-                    </p>
+
+                    {isSameDate && <p className='error-message'>Esa fecha ya tiene un estado.</p>}
+                    {isMood && <p className='error-message'>Selecciona un estado de ánimo.</p>}
+                    
+                    <button className="btn btn__save" onClick={this.handleClickSave}>Guardar</button>
+                    <Link to="/" className="btn btn__cancel">
+                        Cancelar
+                    </Link>
                 </form>
             </section>
         );

@@ -38,7 +38,7 @@ class App extends Component {
                     />
                     <Route
                         path="/add-mood"
-                        render={routerProps => <AddMood historyMood={historyMood} />}
+                        render={routerProps => <AddMood historyMood={historyMood} history={routerProps.history}/>}
                     />
                 </Switch>
             </div>
